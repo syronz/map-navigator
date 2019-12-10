@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Map Navigator: canvas</title>
+        <script defer type="text/javascript" src="main.js" ></script>
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body>
+        <h1 class="header"> Map Navigator </h1>
+
+        <div class="frame">
+
+            <canvas id="map" width="400" height="400px"></canvas>
+            <input type="range" onMousemove="ct.goToPercent()" name="rangeX" id="rangeX" min="0" max="1000" value="0"> 
+            <input  orient="vertical" type="range" onMousemove="ct.goToPercent()" name="rangeY" id="rangeY" min="0" max="1000" value="0"> 
+        </div>
+
+        <div class="maps">
+            <button onClick="ct.setMap('map.jpg')" > Map 1 </button>
+            <button onClick="ct.setMap('map2.jpg')" > Map 2 </button>
+            <button onClick="ct.setMap('https://effigis.com/wp-content/uploads/2015/02/DigitalGlobe_WorldView2_50cm_8bit_Pansharpened_RGB_DRA_Rome_Italy_2009DEC10_8bits_sub_r_1.jpg')" > Map 3 </button>
+            
+        </div>
+
+        <div class="jumps">
+            <button onClick="ct.resetMap()" > reset </button>
+            <button onClick="ct.goToCordinate(-15,-18)"> coordinate 1 </button>
+            <button onClick="ct.goToCordinate(-180,-600)"> coordinate 2 </button>
+            <button onClick="ct.goToCordinate(-420,-108)"> coordinate 3 </button>
+            <button onClick="ct.goToCordinate(-1500,-1800)"> coordinate 4 </button>
+            <button onClick="ct.goToCordinate(-2340,-980)"> coordinate 5 </button>
+        </div>
+
+        <div class="directions">
+            <button class="up" onClick="ct.changePosition(0,-1)" > ↑ </button>
+            <button class="right" onClick="ct.changePosition(1,0)" > → </button>
+            <button class="down" onClick="ct.changePosition(0,1)" > ↓ </button>
+            <button class="left" onClick="ct.changePosition(-1,0)" > ← </button>
+            <input type="number" id="ratio" class="ratio" value="10">
+        </div>
+
+    </body>        
+</html>

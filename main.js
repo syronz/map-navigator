@@ -5,7 +5,10 @@ class Ctx {
         this.xp = 0; // x position
         this.yp = 0; // y position
         this.rangeX = document.getElementById("rangeX"); // get horizontal range
-        this.rangeY = document.getElementById("rangeY"); // get vertical range        
+        this.rangeY = document.getElementById("rangeY"); // get vertical range   
+        this.gpsX = 0;  
+        this.gpsY = 0;
+           
 
         // initiate map object from reference
         this.map = map;
@@ -19,6 +22,9 @@ class Ctx {
             // draw image after loading of image completed
             this.draw();
         }
+
+        this.gps = new Image();
+        this.gps.src = "gps.png";
     }
 
     // return canvas'es width 
@@ -33,26 +39,35 @@ class Ctx {
 
     // for jumping to the special area of map. for example coordinate 1 or 2 and etc. go to the center of the canvas.
     goToCordinate = (x,y) => { 
-        this.xp = x - this.width()/2;
-        this.yp = y - this.height()/2;
+        this.xp = -x + this.width()/2;
+        this.yp = -y + this.height()/2;
+
+        this.gpsX = x;
+        this.gpsY = y;
 
         this.draw();
+        
     }
 
     // go to position 0,0
     resetMap = () => {
-        this.xp = this.yp = 0;
+        this.xp = this.yp = this.gpsX = this.gpsY = 0;
         this.draw();
     }
 
     // draw the canvas and update position of range's handler
     draw() {
-        console.log(`x = ${this.xp}, y = ${this.yp}`);
+        console.log(`x = ${this.xp}, y = ${this.yp} | gpsX = ${this.gpsX}, gpsY = ${this.gpsY}`);
         this.x.clearRect(0,0,ct.width(),ct.height());
         this.x.drawImage(map, this.xp, this.yp);
 
         this.rangeX.value = this.xp / this.rateX;
         this.rangeY.value = this.yp / this.rateY;
+
+        // calculate gps location icon
+        const gpsX = this.gpsX + this.xp - this.gps.width / 2;
+        const gpsY = this.gpsY + this.yp - this.gps.height /2 - 27;
+        this.x.drawImage(this.gps, gpsX, gpsY);
     }
 
     // use arrow keys (↑) on screen for go to up, right, down and left
